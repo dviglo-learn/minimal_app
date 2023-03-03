@@ -25,7 +25,12 @@ file(GLOB_RECURSE source_files src/*.cpp src/*.h)
 dv_set_bin_dir(${RESULT_DIR})
 
 # Создаём приложение
-add_executable(${TARGET_NAME} WIN32 ${source_files})
+add_executable(${TARGET_NAME} ${source_files})
+
+if(NOT DV_WIN32_CONSOLE)
+    # Используем точку входа WinMain()
+    set_property(TARGET ${TARGET_NAME} PROPERTY WIN32_EXECUTABLE TRUE)
+endif()
 
 # Отладочная версия приложения будет иметь суффикс _d
 set_property(TARGET ${TARGET_NAME} PROPERTY DEBUG_POSTFIX _d)

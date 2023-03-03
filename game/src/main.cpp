@@ -13,7 +13,7 @@ public:
     SharedPtr<SpriteBatch> sprite_batch_;
 
     // Конструктор класса
-    Game(Context* context) : Application(context)
+    Game()
     {
     }
 
@@ -31,7 +31,7 @@ public:
         Input* input = GetSubsystem<Input>();
         input->SetMouseVisible(true); // Отображаем курсор мыши
 
-        sprite_batch_ = new SpriteBatch(context_);
+        sprite_batch_ = new SpriteBatch();
         SubscribeToEvent(E_ENDALLVIEWSRENDER, DV_HANDLER(Game, handle_end_all_views_render));
     }
 
