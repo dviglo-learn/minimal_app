@@ -28,8 +28,8 @@ public:
     // Инициализация игры после инициализации движка
     void Start() override
     {
-        Input* input = GetSubsystem<Input>();
-        input->SetMouseVisible(true); // Отображаем курсор мыши
+        Input& input = DV_INPUT;
+        input.SetMouseVisible(true); // Отображаем курсор мыши
 
         sprite_batch_ = new SpriteBatch();
         SubscribeToEvent(E_ENDALLVIEWSRENDER, DV_HANDLER(Game, handle_end_all_views_render));
@@ -37,14 +37,14 @@ public:
 
     void handle_end_all_views_render(StringHash eventType, VariantMap& eventData)
     {
-        Graphics* graphics = GetSubsystem<Graphics>();
-        Input* input = GetSubsystem<Input>();
-        ResourceCache* cache = GetSubsystem<ResourceCache>();
+        Graphics& graphics = DV_GRAPHICS;
+        Input& input = DV_INPUT;
+        ResourceCache& cache = DV_RES_CACHE;
 
-        Font* font = cache->GetResource<Font>("fonts/my_font.fnt");
-        Vector2 mouse_pos{input->GetMousePosition()};
+        Font* font = cache.GetResource<Font>("fonts/my_font.fnt");
+        Vector2 mouse_pos{input.GetMousePosition()};
 
-        GetSubsystem<Graphics>()->Clear(CLEAR_COLOR, Color::BLACK);
+        graphics.Clear(CLEAR_COLOR, Color::BLACK);
 
         const String str = "Привет";
         sprite_batch_->DrawString(str, font, 20.f, mouse_pos);
