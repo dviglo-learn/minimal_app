@@ -22,7 +22,7 @@ public:
     {
         engineParameters_[EP_FULL_SCREEN] = false; // Запускаем в окне
         engineParameters_[EP_LOG_NAME] = "game.log";
-        engineParameters_[EP_RESOURCE_PATHS] = "game_data;Data;CoreData";
+        engineParameters_[EP_RESOURCE_PATHS] = "game_data;data;core_data";
     }
 
     // Инициализация игры после инициализации движка
@@ -32,7 +32,7 @@ public:
         input.SetMouseVisible(true); // Отображаем курсор мыши
 
         sprite_batch_ = new SpriteBatch();
-        SubscribeToEvent(E_ENDALLVIEWSRENDER, DV_HANDLER(Game, handle_end_all_views_render));
+        subscribe_to_event(E_ENDALLVIEWSRENDER, DV_HANDLER(Game, handle_end_all_views_render));
     }
 
     void handle_end_all_views_render(StringHash eventType, VariantMap& eventData)
@@ -47,8 +47,8 @@ public:
         graphics.Clear(CLEAR_COLOR, Color::BLACK);
 
         const String str = "Привет";
-        sprite_batch_->DrawString(str, font, 20.f, mouse_pos);
-        sprite_batch_->Flush();
+        sprite_batch_->draw_string(str, font, 20.f, mouse_pos);
+        sprite_batch_->flush();
     }
 };
 
